@@ -20,7 +20,7 @@ public class Cadastrar implements Logica {
 		
 		UsuarioDAO.inserirUsuario(usuario);
 		
-		System.out.println("Usuario inserido com sucesso");
+		System.out.println("Usuario inserido com sucesso!!!");
 		
 		return "index.html";
 		
