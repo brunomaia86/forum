@@ -11,7 +11,7 @@ import modelo.Topico;
 
 public class TopicoDAO {
 
-    public static List<Topico> todosUsuarios() {
+    public static List<Topico> todosTopicos() {
         List<Topico> todos = new ArrayList<>();
 
         try (Connection c = DriverManager.getConnection("jdbc:atrativa.dlinkddns.com://localhost:5432/forum", "postgres", "postgres")) {

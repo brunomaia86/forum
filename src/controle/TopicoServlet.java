@@ -20,7 +20,7 @@ public class TopicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Topico> topicos = TopicoDAO.todosUsuarios();
+        List<Topico> topicos = TopicoDAO.todosTopicos();
 
         String paravraTeste = "teste";
 
