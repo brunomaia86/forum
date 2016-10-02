@@ -20,17 +20,7 @@ public class TopicoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<Topico> topicos = TopicoDAO.todosTopicos();
-
-        String paravraTeste = "teste";
-
-        System.out.println(paravraTeste);
-
-        request.setAttribute("teste", paravraTeste);
-        
-
-        request.setAttribute("topicos", topicos);
-        request.getRequestDispatcher("topicos.jsp").forward(request, response);
+      
 
     }
 

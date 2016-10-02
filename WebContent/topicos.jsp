@@ -10,6 +10,8 @@
 <body>
 	<h1>Tela Tópicos</h1>
 	<h1>Esses são os topicos feitos pelo usuario: ${param.login}</h1>
+	
+	<c:forEach var="topico" items="topicos" />
 
 
 </body>

@@ -16,7 +16,8 @@ public class Login implements Logica {
 
 		try {
 			String nomeUsuario = UsuarioDAO.autenticar(login, senha);
-			request.setAttribute("nome", nomeUsuario);
+			request.getSession().setAttribute("nome", nomeUsuario);
+			//request.setAttribute("nome", nomeUsuario);
 			
 			return "topicos.jsp";
 

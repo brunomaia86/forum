@@ -42,6 +42,33 @@ public class UsuarioDAO {
         }
 
     }
+    
+    public static Usuario recuperar(String login) {
+
+		Usuario u = new Usuario();
+
+		try (Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/coursera", "postgres",
+				"postgres")) {
+
+			String sql = "SELECT * FROM usuario WHERE login = ?";
+			PreparedStatement stm = c.prepareStatement(sql);
+			stm.setString(1, login);
+			ResultSet rs = stm.executeQuery();
+			if (rs.next()) {
+				u.setLogin(rs.getString("login"));
+				u.setNome(rs.getString("nome"));
+				u.setEmail(rs.getString("email"));
+				u.setSenha(rs.getString("senha"));
+			}
+			rs.close();
+			stm.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException("Não foi possivel executar o acesso", e);
+		}
+		return u;
+	}
+    
 
     public static void inserirUsuario(Usuario u) {
 
