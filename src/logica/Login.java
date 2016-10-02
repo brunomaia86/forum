@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.UsuarioDAO;
+import modelo.Usuario;
 
 public class Login implements Logica {
 
@@ -16,8 +17,11 @@ public class Login implements Logica {
 
 		try {
 			String nomeUsuario = UsuarioDAO.autenticar(login, senha);
-			request.getSession().setAttribute("nome", nomeUsuario);
-			//request.setAttribute("nome", nomeUsuario);
+			request.setAttribute("nome", nomeUsuario);
+			
+			Usuario usuario = UsuarioDAO.recuperar(login);
+			String loginSessao = usuario.getLogin();
+			request.getSession().setAttribute("login", loginSessao);
 			
 			return "topicos.jsp";
 

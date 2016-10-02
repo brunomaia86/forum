@@ -7,19 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import modelo.Topico;
-import modelo.Usuario;
 
 public class TopicoDAO {
 
-    public static List<Topico> topicosPorUsuario(Usuario usuario) {
+    public static List<Topico> topicosPorUsuario(String login) {
         List<Topico> topicos = new ArrayList<>();
 
         try (Connection c = DriverManager.getConnection("jdbc:atrativa.dlinkddns.com://localhost:5432/forum", "postgres", "postgres")) {
 
             String sql = "select * from topico where login = ?";
             PreparedStatement stm = c.prepareStatement(sql);
-            stm.setString(1, usuario.getLogin());
+            stm.setString(1, login);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Topico t = new Topico();
