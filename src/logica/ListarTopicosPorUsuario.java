@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.TopicoDAO;
 import modelo.Topico;
 
-public class Topicos implements Logica {
+public class ListarTopicosPorUsuario implements Logica {
 
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -17,7 +17,8 @@ public class Topicos implements Logica {
 
 		List<Topico> topicos = TopicoDAO.topicosPorUsuario((String) request.getAttribute("login"));
 
-		request.setAttribute("login", loginUsuario);
+		
+		//request.setAttribute("login", loginUsuario);
 		request.setAttribute("topicos", topicos);
 
 		return "topicos.jsp";
