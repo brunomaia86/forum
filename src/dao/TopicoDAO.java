@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import modelo.Topico;
+import modelo.Usuario;
 
 public class TopicoDAO {
 
@@ -65,6 +66,26 @@ public class TopicoDAO {
         }
 
         return topico;
+
+    }
+    
+    public static void inserirTopico(Topico t) {
+
+        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres",
+                "postgres")) {
+
+            String sql = "INSERT INTO topico(titulo, conteudo, login) VALUES (?, ?, ?)";
+            PreparedStatement stm = c.prepareStatement(sql);
+
+            stm.setString(1, t.getTitulo());
+            stm.setString(2, t.getConteudo());
+            stm.setString(3, t.getLogin());
+
+            stm.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possivel executar o acesso", e);
+        }
 
     }
 }

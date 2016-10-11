@@ -35,7 +35,7 @@ public class UsuarioDAO {
 
             if (rs.next()) {
                 return rs.getString("nome");
-
+            
             } else {
                 throw new Exception("Não foi possivel autenticar..");
             }
@@ -84,6 +84,8 @@ public class UsuarioDAO {
             stm.setString(4, u.getSenha());
 
             stm.executeUpdate();
+            
+            stm.close();
 
         } catch (SQLException e) {
             throw new RuntimeException("Não foi possivel executar o acesso", e);

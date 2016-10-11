@@ -13,15 +13,13 @@ public class Login implements Logica {
 
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
-
+		
+		request.getSession().setAttribute("loginsessao", login);
 
 		try {
 			String nomeUsuario = UsuarioDAO.autenticar(login, senha);
 			request.setAttribute("nome", nomeUsuario);
 			
-			Usuario usuario = UsuarioDAO.recuperar(login);
-			String loginSessao = usuario.getLogin();
-			request.getSession().setAttribute("login", loginSessao);
 			
 			return "topicos.jsp";
 

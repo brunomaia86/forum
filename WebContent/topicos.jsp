@@ -25,6 +25,8 @@
 	</table>
 	<h2>Para inserir um novo topico, clique <a href="insere-topico.jsp"> aqui </a> ou
 	para visualizar o rank de maiores pontuadores, clique <a href="rank.jsp"> aqui </a></h2>
+	
+	<h1><a href="insere-topico.html"> aqui </a></h1>
 
 </body>
 </html>
