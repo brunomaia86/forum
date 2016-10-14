@@ -30,8 +30,7 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<form action="ServletControle">
-		<input type="hidden" name="logica" value="CadastrarComentario" />
+		<form action="InserirComentarioServlet">
 			<div>
                 Comentario: <input type="text" name="comentario" />
             </div>
