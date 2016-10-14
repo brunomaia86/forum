@@ -16,17 +16,16 @@ public class TopicoDAO {
     public static List<Topico> topicosPorUsuario(String login) {
         List<Topico> topicos = new ArrayList<>();
 
-        try (Connection c = DriverManager.getConnection("jdbc:atrativa.dlinkddns.com://localhost:5432/forum", "postgres", "postgres")) {
-
+        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres", "postgres")) {
             String sql = "select * from topico where login = ?";
             PreparedStatement stm = c.prepareStatement(sql);
             stm.setString(1, login);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Topico t = new Topico();
-                t.setId(rs.getInt("id"));
+                t.setId(rs.getInt("id_topico"));
                 t.setTitulo(rs.getString("titulo"));
-                t.setConteudo(rs.getString("comentario"));
+                t.setConteudo(rs.getString("conteudo"));
                 t.setLogin(rs.getString("login"));
                 topicos.add(t);
             }
@@ -42,9 +41,9 @@ public class TopicoDAO {
     }
     
     public static Topico topicoPorUsuario(String login, String titulo) {
-        Topico topico = new Topico();
+        Topico t = new Topico();
 
-        try (Connection c = DriverManager.getConnection("jdbc:atrativa.dlinkddns.com://localhost:5432/forum", "postgres", "postgres")) {
+        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres", "postgres")) {
 
             String sql = "select * from topico where login = ? and titulo = ?";
             PreparedStatement stm = c.prepareStatement(sql);
@@ -52,10 +51,9 @@ public class TopicoDAO {
             stm.setString(2, titulo);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Topico t = new Topico();
-                t.setId(rs.getInt("id"));
+                t.setId(rs.getInt("id_topico"));
                 t.setTitulo(rs.getString("titulo"));
-                t.setConteudo(rs.getString("comentario"));
+                t.setConteudo(rs.getString("conteudo"));
                 t.setLogin(rs.getString("login"));
             }
             rs.close();
@@ -65,7 +63,7 @@ public class TopicoDAO {
             throw new RuntimeException("Não foi possivel executar o acesso!!", e);
         }
 
-        return topico;
+        return t;
 
     }
     

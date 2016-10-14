@@ -13,7 +13,7 @@ import logica.Logica;
 @WebServlet("/ServletControle")
 public class ControllerServlet extends HttpServlet {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -2059607154607434115L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

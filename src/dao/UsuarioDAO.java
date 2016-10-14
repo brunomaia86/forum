@@ -47,7 +47,7 @@ public class UsuarioDAO {
 
 		Usuario u = new Usuario();
 
-		try (Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/coursera", "postgres",
+		try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres",
 				"postgres")) {
 
 			String sql = "SELECT * FROM usuario WHERE login = ?";

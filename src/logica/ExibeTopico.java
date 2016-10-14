@@ -11,13 +11,14 @@ public class ExibeTopico implements Logica {
 	@Override
 	public String executa(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String login = request.getParameter("login");
+		String login = (String) request.getSession().getAttribute("loginsessao");
 		String titulo = request.getParameter("titulo");
 		
 		Topico topico = TopicoDAO.topicoPorUsuario(login, titulo);
+		request.getSession().setAttribute("idtopico", topico.getId());
 		
 		request.setAttribute("titulo", topico.getTitulo());
-		request.setAttribute("nome", topico.getTitulo());
+		request.setAttribute("login", topico.getLogin());
 		request.setAttribute("conteudo", topico.getConteudo());
 		
 		
