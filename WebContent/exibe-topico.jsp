@@ -11,14 +11,18 @@
 	<h1>Tela Exibe Topico</h1>
 
 	<div>
-		Topico:
+		<h3>Topico:</h3>
 		<p>${conteudo}</p>
-		Postado por:
+		<h3>Titulo:</h3>
+		<p>${titulo}</p>
+		<h3>Postado por:</h3>
 		<p>${usuario.nome}</p>
 	</div>
 
+	<h2>Comentarios:</h2>
+
 	<div>
-		<table border="0">
+		<table border="1">
 			<tr>
 				<td>Titulo</td>
 				<td>Autor</td>
@@ -30,13 +34,16 @@
 				</tr>
 			</c:forEach>
 		</table>
+
+		<h2>Insira seu Comentario:</h2>
+
 		<form action="InserirComentarioServlet">
 			<div>
-                Comentario: <input type="text" name="comentario" />
-            </div>
+				<textarea rows="4" cols="50" name="comentario">Entre com seu comentario...</textarea>
+			</div>
 			<div class="button">
-                <input type="submit" value="Comentar" />
-            </div>
+				<input type="submit" value="Comentar" />
+			</div>
 		</form>
 	</div>
 
