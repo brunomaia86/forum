@@ -21,31 +21,33 @@
 
 	<h2>Comentarios:</h2>
 
-	<div>
-		<table border="1">
-			<tr>
-				<td>Titulo</td>
-				<td>Autor</td>
-			</tr>
-			<c:forEach var="comentario" items="${comentarios}">
+	<form action="ServletControle">
+
+			<table border="1">
 				<tr>
-					<td>${comentario.titulo}</td>
-					<td>${comentario.login}</td>
+					<td>Titulo</td>
+					<td>Autor</td>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach var="comentario" items="${comentarios}">
+					<tr>
+						<td>${comentario.comentario}</td>
+						<td>${comentario.login}</td>
+					</tr>
+				</c:forEach>
+			</table>
+	</form>
 
-		<h2>Insira seu Comentario:</h2>
+	<h2>Insira seu Comentario:</h2>
 
-		<form action="InserirComentarioServlet">
-			<div>
-				<textarea rows="4" cols="50" name="comentario">Entre com seu comentario...</textarea>
-			</div>
-			<div class="button">
-				<input type="submit" value="Comentar" />
-			</div>
-		</form>
-	</div>
+	<form action="ServletControle">
+		<div>
+			<textarea rows="4" cols="50" name="comentario">Entre com seu comentario...</textarea>
+		</div>
+		<div class="button">
+			<input type="submit" value="Comentar" />
+		</div>
+		<input type="hidden" name="logica" value="InserirComentario" />
+	</form>
 
 
 

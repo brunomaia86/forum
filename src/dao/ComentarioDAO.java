@@ -3,7 +3,10 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import modelo.Comentario;
 import modelo.Topico;
@@ -30,5 +33,30 @@ public class ComentarioDAO {
         }
 
     }
+
+	public static List<Comentario> buscarTodosComentario() {
+		List<Comentario> comentarios = new ArrayList<>();
+
+        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres", "postgres")) {
+            String sql = "select * from comentario";
+            PreparedStatement stm = c.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Comentario comentario = new Comentario();
+                comentario.setId(rs.getInt("id_comentario"));
+                comentario.setComentario(rs.getString("comentario"));
+                comentario.setLogin(rs.getString("login"));
+                comentario.setIdTopico(rs.getInt("id_topico"));
+                comentarios.add(comentario);
+            }
+            rs.close();
+            stm.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Não foi possivel executar o acesso!!", e);
+        }
+
+        return comentarios;
+	}
 
 }
