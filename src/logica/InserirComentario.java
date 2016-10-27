@@ -1,5 +1,7 @@
 package logica;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,7 +20,10 @@ public class InserirComentario implements Logica {
 		comentario.setIdTopico((int) request.getSession().getAttribute("idtopico"));
 
 		ComentarioDAO.inserirComentario(comentario);
-
+		
+		List<Comentario> comentarios = ComentarioDAO.buscarTodosComentario();
+		request.setAttribute("comentarios", comentarios);
+		
 		return "exibe-topico.jsp";
 		
 	}

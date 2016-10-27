@@ -48,6 +48,8 @@
 		</div>
 		<input type="hidden" name="logica" value="InserirComentario" />
 	</form>
+	
+	<a href="topicos.jsp">Voltar para tela de Topicos</a>
 
 
 
