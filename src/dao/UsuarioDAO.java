@@ -9,46 +9,45 @@ import java.util.List;
 
 import modelo.Usuario;
 
-
 public class UsuarioDAO {
 
-    static {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-           
-            e.printStackTrace();
-        }
-    }
+	static {
+		try {
+			Class.forName("org.postgresql.Driver");
+		} catch (ClassNotFoundException e) {
 
-    public static String autenticar(String login, String senha) throws Exception {
+			e.printStackTrace();
+		}
+	}
 
-        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres",
-                "postgres")) {
+	public static String autenticar(String login, String senha) throws Exception {
 
-            String sql = "select nome from usuario where login = ? and senha = ?";
-            PreparedStatement ps = c.prepareStatement(sql);
+		try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum",
+				"postgres", "postgres")) {
 
-            ps.setString(1, login);
-            ps.setString(2, senha);
-            ResultSet rs = ps.executeQuery();
+			String sql = "select nome from usuario where login = ? and senha = ?";
+			PreparedStatement ps = c.prepareStatement(sql);
 
-            if (rs.next()) {
-                return rs.getString("nome");
-            
-            } else {
-                throw new Exception("NÃ£o foi possivel autenticar..");
-            }
-        }
+			ps.setString(1, login);
+			ps.setString(2, senha);
+			ResultSet rs = ps.executeQuery();
 
-    }
-    
-    public static Usuario recuperar(String login) {
+			if (rs.next()) {
+				return rs.getString("nome");
+
+			} else {
+				throw new Exception("NÃ£o foi possivel autenticar..");
+			}
+		}
+
+	}
+
+	public static Usuario recuperar(String login) {
 
 		Usuario u = new Usuario();
 
-		try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres",
-				"postgres")) {
+		try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum",
+				"postgres", "postgres")) {
 
 			String sql = "SELECT * FROM usuario WHERE login = ?";
 			PreparedStatement stm = c.prepareStatement(sql);
@@ -59,39 +58,53 @@ public class UsuarioDAO {
 				u.setNome(rs.getString("nome"));
 				u.setEmail(rs.getString("email"));
 				u.setSenha(rs.getString("senha"));
+				u.setPontos(rs.getInt("pontos"));
 			}
 			rs.close();
 			stm.close();
 
 		} catch (SQLException e) {
-			throw new RuntimeException("NÃ£o foi possivel executar o acesso", e);
+			throw new RuntimeException("NÃo foi possivel recuperar o usuario", e);
 		}
 		return u;
 	}
-    
 
-    public static void inserirUsuario(Usuario u) {
+	public static void inserirUsuario(Usuario u) {
 
-        try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres",
-                "postgres")) {
+		try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum",
+				"postgres", "postgres")) {
 
-            String sql = "INSERT INTO usuario(login, nome, email, senha) VALUES (?, ?, ?, ?)";
+			String sql = "INSERT INTO usuario(login, nome, email, senha, pontos) VALUES (?, ?, ?, ?, ?)";
+			PreparedStatement stm = c.prepareStatement(sql);
+
+			stm.setString(1, u.getLogin());
+			stm.setString(2, u.getNome());
+			stm.setString(3, u.getEmail());
+			stm.setString(4, u.getSenha());
+			stm.setInt(5, u.getPontos());
+
+			stm.executeUpdate();
+
+			stm.close();
+
+		} catch (SQLException e) {
+			throw new RuntimeException("NÃo foi possivel inserir o usuario", e);
+		}
+
+	}
+
+	public static void adicionarPontos(String login, int pontos) {
+        try(Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum",
+				"postgres", "postgres")) {
+            String sql = "UPDATE usuario SET pontos = pontos + ? WHERE login = ?";
             PreparedStatement stm = c.prepareStatement(sql);
-
-            stm.setString(1, u.getLogin());
-            stm.setString(2, u.getNome());
-            stm.setString(3, u.getEmail());
-            stm.setString(4, u.getSenha());
+            stm.setInt(1, pontos);
+            stm.setString(2, login);
 
             stm.executeUpdate();
-            
-            stm.close();
-
         } catch (SQLException e) {
-            throw new RuntimeException("NÃ£o foi possivel executar o acesso", e);
+            throw  new RuntimeException("Não foi possível executar o acesso ao banco de dados", e);
         }
-
-    }
-    
+}
 
 }

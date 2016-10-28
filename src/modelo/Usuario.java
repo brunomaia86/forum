@@ -15,6 +15,7 @@ public class Usuario {
 	private String nome;
 	private String email;
 	private String senha;
+	private int pontos;
 	
 	
 
@@ -60,6 +61,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public int getPontos() {
+		return pontos;
+	}
+
+	public void setPontos(int pontos) {
+		this.pontos = pontos;
 	}
     
 }
