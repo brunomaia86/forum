@@ -21,7 +21,7 @@ public class InserirComentario implements Logica {
 
 		ComentarioDAO.inserirComentario(comentario);
 		
-		List<Comentario> comentarios = ComentarioDAO.buscarTodosComentario();
+		List<Comentario> comentarios = ComentarioDAO.buscarTodosComentarios(comentario.getIdTopico());
 		request.setAttribute("comentarios", comentarios);
 		
 		return "exibe-topico.jsp";

@@ -21,7 +21,7 @@ public class ExibeTopico implements Logica {
 		Topico topico = TopicoDAO.topicoPorUsuario(login, titulo);
 		request.getSession().setAttribute("idtopico", topico.getId());
 		
-		List<Comentario> comentarios = ComentarioDAO.buscarTodosComentario();
+		List<Comentario> comentarios = ComentarioDAO.buscarTodosComentarios(topico.getId());
 		
 		request.setAttribute("titulo", topico.getTitulo());
 		request.setAttribute("login", topico.getLogin());

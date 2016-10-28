@@ -34,12 +34,13 @@ public class ComentarioDAO {
 
     }
 
-	public static List<Comentario> buscarTodosComentario() {
+	public static List<Comentario> buscarTodosComentarios(int idTopico) {
 		List<Comentario> comentarios = new ArrayList<>();
 
         try (Connection c = DriverManager.getConnection("jdbc:postgresql://atrativa.dlinkddns.com:5432/forum", "postgres", "postgres")) {
-            String sql = "select * from comentario";
+            String sql = "select * from comentario where id_topico = ?";
             PreparedStatement stm = c.prepareStatement(sql);
+            stm.setInt(1, idTopico);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Comentario comentario = new Comentario();
